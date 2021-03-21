@@ -1,0 +1,18 @@
+  groups:
+    - name: instance_rules
+      rules:
+        - alert: AverageInstanceCPUOver80
+          expr: avg without(job)(rate(process_cpu_seconds_total[5m])) > 0.8
+          for: 1m
+          labels:
+            severity: medium
+        - alert: AverageInstanceCPUOver90
+          expr: avg without(job)(rate(process_cpu_seconds_total[5m])) > 0.9
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: Average
+            description: <
+              Average CPU usage is {{ $labels.severity }} of job {{ $labels.job }} is {{ $value }}
+              for more than 5 minutes.

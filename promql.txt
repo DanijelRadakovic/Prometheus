@@ -1,0 +1,7 @@
+rate(go_app_api_request_latency_sum[5m]) / rate(go_app_api_request_latency_count[5m])
+
+100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[1m])) * 100)
+
+(sum by(instance) (node_filesystem_free_bytes) / sum by(instance) (node_filesystem_size_bytes)) * 100
+
+time() - process_start_time_seconds{job="node_exporter"}
