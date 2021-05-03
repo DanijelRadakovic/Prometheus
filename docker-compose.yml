@@ -31,6 +31,24 @@ services:
     ports:
       - 9100:9100
 
+  blackbox-exporter:
+    image: prom/blackbox-exporter:v0.18.0
+    container_name: blackbox-exporter
+    networks:
+      - backend
+    ports:
+      - 9115:9115
+    volumes:
+      - ./blackbox/config.yml:/etc/blackbox_exporter/config.yml
+
+  pushgateway:
+    image: prom/pushgateway:v1.4.0
+    container_name: pushgateway
+    networks:
+      - backend
+    ports:
+      - 9091:9091
+
   cadvisor:
     image: google/cadvisor:v0.33.0
     container_name: cadvisor
